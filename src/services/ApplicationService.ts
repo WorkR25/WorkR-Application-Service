@@ -5,6 +5,7 @@ import { CreateApplicationDto } from '../dtos/ApplicationDto';
 import BadRequestError from '../errors/BadRequestError';
 import BaseError from '../errors/BaseError';
 import InternalServerError from '../errors/InternalServerError';
+import UnauthorizedError from '../errors/UnauthorizeError';
 // import NotFoundError from '../errors/NotFoundError';
 import ApplicationRepository from '../repositories/ApplicationRepository';
 import { ApplicationDetails } from '../types/ApplicationDetails';
@@ -101,7 +102,7 @@ class ApplicationService {
     isAuthenticated(token: string) {
         try {
             if(!token) {
-                throw new BadRequestError('Missing JWT token', { token: undefined });
+                throw new UnauthorizedError('Missing JWT token', { token: undefined });
             }
 
             auth.verifyToken(token);
@@ -110,11 +111,11 @@ class ApplicationService {
             if(error instanceof BaseError) throw error;
 
             if(error instanceof TokenExpiredError) {
-                throw new BadRequestError('JWT token expired, Please login again', { token });
+                throw new UnauthorizedError('JWT token expired, Please login again', { token });
             }
 
             if(error instanceof JsonWebTokenError) {
-                throw new BadRequestError('Invalid JWT token', { token });
+                throw new UnauthorizedError('Invalid JWT token', { token });
             }
 
             throw new InternalServerError('Something went wrong', {});
