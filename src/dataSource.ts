@@ -17,7 +17,7 @@ const dataSource = new DataSource({
     entities: [Application],
     migrations: ['dist/migrations/**/*.js'],
     synchronize: false,
-    logging: true,
+    // logging: true,
     ssl: {
         rejectUnauthorized: false
     }
