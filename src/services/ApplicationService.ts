@@ -63,7 +63,7 @@ class ApplicationService {
 
     async getAllApplicant(userId: number, jobId: string, token: string) {
         try {
-            const user: AxiosResponse<User> = await axios.get(`http://localhost:4000/api/v1/users/${userId}`, {
+            const user: AxiosResponse<User> = await axios.get(`https://user.workr.club/api/v1/users/${userId}`, {
                 headers: {
                     'x-access-token': token
                 }
@@ -86,7 +86,7 @@ class ApplicationService {
 
             const applicantIds = applications.map((application) => application.applicantId);
 
-            const applicants: AxiosResponse<ApplicationDetails> = await axios.post('http://localhost:4000/api/v1/users/applicants', { applicantIds }, {
+            const applicants: AxiosResponse<ApplicationDetails> = await axios.post('https://user.workr.club/api/v1/users/applicants', { applicantIds }, {
                 headers: {
                     'x-access-token': token
                 }
